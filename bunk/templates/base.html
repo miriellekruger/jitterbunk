@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'bunk/style.css' %}">
+
+  <head>
+    {% block title %}
+      <title>Bunk Main</title>
+    {% endblock %}
+  </head>
+  <body>
+  {% if user.is_authenticated %}
+    <li>User: {{ user.get_username }}</li>
+
+      <form id="logout" method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-link">Logout</button>
+      </form>
+  {% else %}
+    <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
+    <li><a href="{% url 'signup' %}?next={{ request.path }}">Sign Up</a></li>
+  {% endif %}
+    {% block content %}
+      <!-- default content text (typically empty) -->
+    {% endblock %}
+  </body>
+</html>

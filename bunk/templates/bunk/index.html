@@ -1,0 +1,41 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+{% load static %}
+
+{% load tz %}
+
+<div class="container">
+<a href="{% url 'bunker' %}"><button>Bunk!</button></a>
+
+
+{% if all_bunks %}
+    <div >
+    {% for bunk in all_bunks %}
+        <div class="bunk">
+        <!-- <a href="{% url 'detail' bunk.id %}"> -->
+            <a href="{% url 'user' bunk.from_user.id %}">
+                <img src={{bunk.from_user.photo}} alt="profile image">
+                {{bunk.from_user.username}}
+            </a> bunked -> <a href="{% url 'user' bunk.to_user.id %}">
+                {{bunk.to_user.username}}
+                <img src="{{bunk.to_user.photo}}" alt="profile image">
+            </a>
+            <p>
+                {% localtime on %}
+                    {{bunk.time}}                
+                {% endlocaltime %}
+            </p>
+            
+        <!-- </a> -->
+        </div>
+    {% endfor %}
+    </div>
+{% else %}
+    <p>No bunks are available.</p>
+{% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+
+{% load tz %}
+
+<div class="container">
+    <a href="{% url 'index' %}"><button>Back to Main Feed!</button></a>
+    <h1>{{current_user.username}}</h1>
+    <a href="{% url 'bunker' %}"><button>Bunk!</button></a>
+
+    {% if my_from_bunks %}
+    <div >
+        <h2>Who has been Bunked by {{current_user.username}}</h2>
+        {% for bunk in my_from_bunks %}
+            <div class="bunk">
+                <a href="{% url 'user' bunk.from_user.id %}">
+                    <img src={{bunk.from_user.photo}} alt="profile image">
+                    {{bunk.from_user.username}}
+                </a> bunked -> <a href="{% url 'user' bunk.to_user.id %}">
+                    {{bunk.to_user.username}}
+                    <img src={{bunk.to_user.photo}} alt="profile image">
+                </a>
+                <p>
+                    {% localtime on %}
+                        {{bunk.time}}                
+                    {% endlocaltime %}
+                </p>   
+            </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <p>{{current_user.username}} has not bunked anyone.</p>
+    {% endif %}
+
+    {% if my_to_bunks %}
+    <div>
+        <h2>Who has Bunked {{current_user.username}}</h2>
+        {% for bunk in my_to_bunks %}
+            <div class="bunk">
+                <a href="{% url 'user' bunk.from_user.id %}">
+                    <img src="{{bunk.from_user.photo}}" alt="profile image">
+                    {{bunk.from_user.username}}
+                </a> bunked -> <a href="{% url 'user' bunk.to_user.id %}">
+                    {{bunk.to_user.username}}
+                    <img src="{{bunk.to_user.photo}}" alt="profile image">
+                </a>
+                <p>
+                    {% localtime on %}
+                        {{bunk.time}}                
+                    {% endlocaltime %}
+                </p>            
+            </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <p>{{current_user.username}} has not been bunked by anyone.</p>
+    {% endif %}
+    </div>
+
+{% endblock %}

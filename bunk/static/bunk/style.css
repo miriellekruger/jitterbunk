@@ -1,0 +1,36 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+}
+
+.bunk {
+    border: solid plum;
+    border-radius: 50px;
+    padding: 20px;
+    margin-bottom: 10px;
+    margin-right: 20px;
+}
+
+img {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+button {
+    margin: 10px;
+}
+
+.button {
+    margin: 10px;
+}
+
+h1 {
+    color: blue;
+}
+
+h2 {
+    color: green;
+}

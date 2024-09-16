@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<a href="{% url 'index' %}"><button>Back to Main Feed!</button></a>
+<form action="{% url 'bunker_submit' %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+
+        {% if request.user == %}
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        <select id="from_user" name="from_user">
+        <option  value="" selected="selected">---SELECT---</option>
+
+        {% for user in user_list %}
+            {% if request.user == user.auth_user %}
+
+            {% else %}
+            <option value="{{user.id}}"
+                {% if user == current_user %}selected="selected"{% endif %}>
+                {{user.username}}
+            </option>
+            {% endif %}
+
+        {% endfor %}
+        </select>
+        <p> bunks </p>
+        <select id="to_user" name="to_user">
+            <option  value="" selected="selected">---SELECT---</option>
+        {% for user in user_list %}
+            <option value="{{user.id}}"
+                {% if user == current_user %}selected="selected"{% endif %}>
+                {{user.username}}
+            </option>
+        {% endfor %}
+        </select>
+
+    </fieldset>
+    <input class="button" type="submit" value="Bunk">
+    </form>
+{% endblock %}

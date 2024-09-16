@@ -8,8 +8,11 @@
 {% load tz %}
 
 <div class="container">
-<a href="{% url 'bunker' %}"><button>Bunk!</button></a>
-
+{% if user.is_authenticated %}
+    <a href="{% url 'bunker' %}"><button>Bunk!</button></a>
+{% else %}
+<p>Login or signup to bunk!</p>
+{% endif %}
 
 {% if all_bunks %}
     <div >
